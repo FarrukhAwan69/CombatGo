@@ -19,8 +19,8 @@ const TABS = [
 type TabKey = (typeof TABS)[number]['key'];
 
 function TotalTimeScreen({ navigation, route }: any) {
-    const insets = useSafeAreaInsets();
-  
+  const insets = useSafeAreaInsets();
+
   const { elapsedTime, activityName, sport, activityType } = route.params;
 
   const [selectedTab, setSelectedTab] = useState<TabKey>('technique');
@@ -67,37 +67,37 @@ function TotalTimeScreen({ navigation, route }: any) {
   };
 
   return (
-      <View style={styles.container}>
-        <StackHeader title="Total Time" onPress={() => navigation.goBack()} />
+    <View style={styles.container}>
+      <StackHeader title="Total Time" onPress={() => navigation.goBack()} />
 
-        <View style={[styles.totalTimeContainer,{paddingTop: insets.top}]}>
-          <Text style={styles.totalTimeLabel}>TOTAL TIME</Text>
-          <Text style={styles.totalTime}>{formatTime(elapsedTime)}</Text>
-        </View>
-
-        <View style={styles.tabs}>
-          {TABS.map((tab) => (
-            <TabButton
-              key={tab.key}
-              label={tab.label}
-              active={selectedTab === tab.key}
-              onPress={() => setSelectedTab(tab.key)}
-            />
-          ))}
-        </View>
-
-        <View style={styles.content}>{renderContent()}</View>
-
-        <View style={[styles.bottomButtons,{paddingBottom: insets.bottom}]}>
-          <Pressable style={styles.finishButton} onPress={finishAndSave}>
-            <Text style={styles.finishButtonText}>Finish & Save</Text>
-          </Pressable>
-
-          <Pressable style={styles.resumeButton} onPress={resumeWorkout}>
-            <Text style={styles.resumeButtonText}>Resume</Text>
-          </Pressable>
-        </View>
+      <View style={[styles.totalTimeContainer, { paddingTop: insets.top }]}>
+        <Text style={styles.totalTimeLabel}>TOTAL TIME</Text>
+        <Text style={styles.totalTime}>{formatTime(elapsedTime)}</Text>
       </View>
+
+      <View style={styles.tabs}>
+        {TABS.map(tab => (
+          <TabButton
+            key={tab.key}
+            label={tab.label}
+            active={selectedTab === tab.key}
+            onPress={() => setSelectedTab(tab.key)}
+          />
+        ))}
+      </View>
+
+      <View style={styles.content}>{renderContent()}</View>
+
+      <View style={[styles.bottomButtons, { paddingBottom: insets.bottom }]}>
+        <Pressable style={styles.finishButton} onPress={finishAndSave}>
+          <Text style={styles.finishButtonText}>Finish & Save</Text>
+        </Pressable>
+
+        <Pressable style={styles.resumeButton} onPress={resumeWorkout}>
+          <Text style={styles.resumeButtonText}>Resume</Text>
+        </Pressable>
+      </View>
+    </View>
   );
 }
 
@@ -116,13 +116,14 @@ const styles = StyleSheet.create({
   },
 
   totalTimeLabel: {
+    fontFamily: 'Montserrat-Primary',
     fontSize: moderateScale(16),
     color: '#222',
   },
 
   totalTime: {
     fontSize: moderateScale(42),
-    fontWeight: '700',
+    fontFamily: 'Montserrat-Bold',
     color: '#2E82B2',
     marginTop: verticalScale(12),
   },
@@ -162,7 +163,7 @@ const styles = StyleSheet.create({
   finishButtonText: {
     color: '#2E82B2',
     fontSize: moderateScale(15),
-    fontWeight: '600',
+    fontFamily: 'Montserrat-Bold',
   },
 
   resumeButton: {
@@ -177,6 +178,6 @@ const styles = StyleSheet.create({
   resumeButtonText: {
     color: 'white',
     fontSize: moderateScale(15),
-    fontWeight: '600',
+    fontFamily: 'Montserrat-Bold',
   },
 });

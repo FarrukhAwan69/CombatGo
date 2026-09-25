@@ -11,9 +11,15 @@ import {
 type StackHeaderProps = {
   title: string;
   onPress: () => void;
+  rightComponent?: React.ReactNode;
 };
 
-function StackHeader({ title, onPress }: StackHeaderProps) {
+
+function StackHeader({
+  title,
+  onPress,
+  rightComponent,
+}: StackHeaderProps) {
   const insets = useSafeAreaInsets();
 
   return (
@@ -27,20 +33,22 @@ function StackHeader({ title, onPress }: StackHeaderProps) {
     >
       <Pressable
         style={styles.backButton}
-        onPress={() => {
-          console.log('BACK PRESSED');
-          onPress();
-        }}
+        onPress={onPress}
       >
         <Text style={styles.backArrow}>‹</Text>
       </Pressable>
 
       <Text style={styles.title}>{title}</Text>
 
-      <View style={styles.rightSpacer} />
+      {rightComponent ? (
+        rightComponent
+      ) : (
+        <View style={styles.rightSpacer} />
+      )}
     </View>
   );
 }
+
 export default StackHeader;
 
 const styles = StyleSheet.create({
@@ -50,9 +58,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: horizontalScale(20),
     flexDirection: 'row',
     alignItems: 'center',
-
-    backgroundColor: 'blue',
-
+    backgroundColor: 'white',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -66,26 +72,20 @@ const styles = StyleSheet.create({
   backButton: {
     width: horizontalScale(40),
     height: verticalScale(40),
-
-    backgroundColor: 'red',
-
     justifyContent: 'center',
     alignItems: 'center',
   },
 
   backArrow: {
-    fontFamily: 'Montserrat-Regular',
+    fontFamily: 'Montserrat',
     fontSize: moderateScale(20),
   },
 
   title: {
     flex: 1,
-
     textAlign: 'center',
-
     fontFamily: 'Montserrat-Bold',
     fontSize: moderateScale(20),
-
     color: '#2583b2',
   },
 

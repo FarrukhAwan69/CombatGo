@@ -15,8 +15,7 @@ function MainScreenGo({ navigation }: any) {
   return (
     <View style={styles.container}>
       <StackHeader title="CombatGo" onPress={() => {}} />
-
-      <View style={styles.features}>
+      <View style={[styles.features,styles.contentPadding]}>
         <FeatureCard
           title="ROUNDS"
           color="#91AF4C"
@@ -39,7 +38,7 @@ function MainScreenGo({ navigation }: any) {
       </View>
 
       <View style={styles.featuredSection}>
-        <View style={styles.sectionHeader}>
+        <View style={[styles.sectionHeader,styles.contentPadding]}>
           <Text style={styles.sectionTitle}>Featured Workouts</Text>
         </View>
         <ScrollView
@@ -88,29 +87,30 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FFFFFF',
   },
+  contentPadding:{
+    paddingHorizontal:horizontalScale(30)
+  },
   features: {
     paddingTop: verticalScale(24),
-    paddingHorizontal: horizontalScale(21),
     gap: moderateScale(16),
   },
   featuredSection: {
     marginTop: verticalScale(35),
+
   },
   sectionHeader: {
-    paddingHorizontal: horizontalScale(21),
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
   sectionTitle: {
     fontSize: moderateScale(20),
-    fontWeight: '700',
+    fontFamily: 'Montserrat-Bold',
     color: '#292929',
   },
   workoutScroll: {
-    paddingLeft: horizontalScale(21),
-    paddingRight: horizontalScale(21),
-    gap: moderateScale(16),
+    paddingHorizontal: horizontalScale(30),
+    gap: moderateScale(15),
     marginTop: verticalScale(18),
   },
   workoutCard: {

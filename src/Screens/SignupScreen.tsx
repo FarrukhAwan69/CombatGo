@@ -4,10 +4,12 @@ import { View, Text, StyleSheet, Pressable, TextInput } from 'react-native';
 import StackHeader from '../components/stackHeader/stackHeader';
 import { signupValidationSchema } from '../validations/SignupValidation';
 import { horizontalScale, verticalScale, moderateScale } from '../utils/index';
+import Wrapper from '../components/wrapper/Wrapper';
 
 function SignupScreen({ navigation }: any) {
   console.log('SIGNUP SCREEN LOADED');
   return (
+    <Wrapper>
     <Formik
       initialValues={{
         firstName: '',
@@ -34,7 +36,7 @@ function SignupScreen({ navigation }: any) {
         handleChange,
         handleSubmit,
       }) => (
-        <View style={styles.signup}>
+        <View style={styles.signupPage}>
           <StackHeader
             title="Sign Up"
             onPress={() => {
@@ -42,7 +44,7 @@ function SignupScreen({ navigation }: any) {
               navigation.goBack();
             }}
           />
-
+          <View style={[styles.content,styles.contentPadding]}>
           <TextInput style={styles.inputfiled} placeholder="First Name" placeholderTextColor="gray" value={values.firstName} onChangeText={handleChange('firstName')} onBlur={handleBlur('firstName')} />
           {touched.firstName && errors.firstName && (<Text style={styles.errorText}>{errors.firstName}</Text>)}
 
@@ -54,18 +56,20 @@ function SignupScreen({ navigation }: any) {
           
           <TextInput style={styles.inputfiled} placeholder="Password" placeholderTextColor="gray" secureTextEntry value={values.password} onChangeText={handleChange('password')} onBlur={handleBlur('password')} />
           {touched.password && errors.password && ( <Text style={styles.errorText}>{errors.password}</Text>)}
-
-          <Text style={styles.AlreadyaMemberText}>
+            <View style={styles.textContainer}>
+              <Text style={styles.alreadyaMemberText}>
             By signing up, you agree to our{' '}
             <Text style={styles.link}>terms of services</Text> and{' '}
             <Text style={styles.link}>privacy and conditions</Text>
           </Text>
+            </View>
+          
 
           <Pressable style={styles.Signupbutton} onPress={() => handleSubmit()}>
             <Text style={styles.buttonText}>Agree and Sign up</Text>
           </Pressable>
-
-          <Text style={styles.AlreadyaMemberText}>
+            <View style={styles.textContainer}>
+          <Text style={styles.alreadyaMemberText}>
             Already have an Account?{' '}
             <Text
               style={styles.link}
@@ -74,21 +78,33 @@ function SignupScreen({ navigation }: any) {
               Login
             </Text>
           </Text>
+          </View>
+           </View>
         </View>
       )}
     </Formik>
+    </Wrapper>
   );
 }
 
 export default SignupScreen;
 
 const styles = StyleSheet.create({
-  signup: {
+  signupPage:{
+    flex: 1,
+    flexDirection: 'column',
+    gap: moderateScale(25),
+    backgroundColor: 'white',
+  },
+  content: {
     flex: 1,
     flexDirection: 'column',
     gap: moderateScale(15),
     alignItems: 'center',
     backgroundColor: 'white',
+  },
+  contentPadding:{
+    paddingHorizontal: horizontalScale(30),
   },
   firstInputfield: {
     marginTop: verticalScale(20),
@@ -98,7 +114,7 @@ const styles = StyleSheet.create({
     borderColor: '#cfd1d1',
     padding: moderateScale(13),
     borderRadius: moderateScale(22),
-    width: '90%',
+    width: '100%',
     alignItems: 'center',
     color: 'black',
   },
@@ -108,15 +124,16 @@ const styles = StyleSheet.create({
     borderColor: '#2583b2',
     padding: moderateScale(13),
     borderRadius: moderateScale(22),
-    width: '90%',
+    width: '100%',
     alignItems: 'center',
     cursor: 'pointer',
   },
-  AlreadyaMemberText: {
-    marginVertical: verticalScale(10),
+  textContainer:{
+    paddingVertical: verticalScale(10),
+  },
+  alreadyaMemberText: {
     fontSize: moderateScale(16),
     color: 'gray',
-    marginHorizontal: horizontalScale(20),
     textAlign: 'center',
   },
   link: {
@@ -129,7 +146,7 @@ const styles = StyleSheet.create({
   errorText: {
     color: 'red',
     fontSize: moderateScale(12),
-    width: '90%',
+    width: '100%',
     marginTop: verticalScale(-10),
   },
 });

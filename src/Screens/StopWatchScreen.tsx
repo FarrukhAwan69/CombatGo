@@ -40,19 +40,16 @@ function StopWatchScreen({ navigation }: any) {
     ).padStart(2, '0')}`;
   };
   const toggleTimer = () => {
-  if (!isRunning) {
-    // Start the stopwatch
-    setIsRunning(true);
-  } else {
-    // Stop/pause the stopwatch
-    setIsRunning(false);
+    if (!isRunning) {
+      setIsRunning(true);
+    } else {
+      setIsRunning(false);
 
-    // Move to Total Time screen
-    navigation.navigate('TotalTimeScreen', {
-      elapsedTime: elapsedTime,
-    });
-  }
-};
+      navigation.navigate('TotalTimeScreen', {
+        elapsedTime: elapsedTime,
+      });
+    }
+  };
   const stopTimer = () => {
     setIsRunning(false);
     setElapsedTime(0);
@@ -84,15 +81,13 @@ function StopWatchScreen({ navigation }: any) {
         </View>
         <View style={styles.outerCircle}>
           <View style={styles.middleCircle}>
-            <View style={styles.innerCircle}>
-              <View style={styles.dottedCircle}>
-                <Text style={styles.sparing}>{activityType.toUpperCase()}</Text>
-                <Text style={styles.timing}>{formatTime(elapsedTime)}</Text>
-                <View style={styles.totalTime}>
-                  <Text style={styles.totalTimeText}>
-                    {formatTime(elapsedTime)}
-                  </Text>
-                </View>
+            <View style={styles.dottedCircle}>
+              <Text style={styles.sparing}>{activityType.toUpperCase()}</Text>
+              <Text style={styles.timing}>{formatTime(elapsedTime)}</Text>
+              <View style={styles.totalTime}>
+                <Text style={styles.totalTimeText}>
+                  {formatTime(elapsedTime)}
+                </Text>
               </View>
             </View>
           </View>
@@ -102,7 +97,14 @@ function StopWatchScreen({ navigation }: any) {
             <Text style={styles.settingsIcon}>⚙</Text>
           </Pressable>
           <Pressable style={styles.playButton} onPress={toggleTimer}>
-            <Text style={styles.playPauseIcon}>{isRunning ? 'Ⅱ' : '▶'}</Text>
+            {isRunning ? (
+              <View style={styles.pauseIconGroup}>
+                <View style={styles.pauseBar} />
+                <View style={styles.pauseBar} />
+              </View>
+            ) : (
+              <View style={styles.playIconTriangle} />
+            )}
           </Pressable>
           <Pressable style={styles.smallButton} onPress={stopTimer}>
             <View style={styles.stopIcon} />
@@ -165,7 +167,7 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     alignItems: 'center',
-    paddingHorizontal: horizontalScale(20),
+    paddingHorizontal: horizontalScale(30),
     marginVertical: verticalScale(40),
   },
   sportType: {
@@ -189,8 +191,8 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(8),
   },
   editButton: {
-    width: horizontalScale(48),
-    height: verticalScale(48),
+    width: moderateScale(48),
+    height: moderateScale(48),
     borderRadius: moderateScale(24),
     backgroundColor: '#E98B18',
     alignItems: 'center',
@@ -220,14 +222,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  innerCircle: {
-    width: moderateScale(230),
-    height: moderateScale(230),
-    borderRadius: moderateScale(115),
-    backgroundColor: '#FFFFFF',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+
   dottedCircle: {
     width: moderateScale(215),
     height: moderateScale(215),
@@ -239,27 +234,40 @@ const styles = StyleSheet.create({
   },
   sparing: {
     color: '#F7931E',
-    fontSize: moderateScale(22),
-    fontWeight: '500',
-    marginBottom: verticalScale(15),
+    fontSize: moderateScale(15),
+    fontFamily: 'Montserrat-Medium',
+    includeFontPadding: false,
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    marginBottom: verticalScale(10),
   },
   timing: {
     color: '#202020',
     fontSize: moderateScale(50),
-    fontWeight: '700',
+    fontFamily: 'Montserrat-SemiBold',
+    includeFontPadding: false,
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    lineHeight: moderateScale(50),
+    marginBottom: verticalScale(14),
   },
   totalTime: {
     backgroundColor: '#2E82B2',
-    paddingHorizontal: horizontalScale(22),
-    paddingVertical: verticalScale(9),
+    height: moderateScale(50),
+    width: moderateScale(100),
     borderRadius: moderateScale(30),
-    marginTop: verticalScale(12),
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   totalTimeText: {
     color: 'white',
     fontSize: moderateScale(22),
-    fontWeight: '600',
+    fontFamily: 'Montserrat-Bold',
+    includeFontPadding: false,
+    textAlign: 'center',
+    textAlignVertical: 'center',
   },
+
   controls: {
     width: '100%',
     flexDirection: 'row',
@@ -270,8 +278,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: horizontalScale(25),
   },
   smallButton: {
-    width: horizontalScale(64),
-    height: verticalScale(64),
+    width: moderateScale(64),
+    height: moderateScale(64),
     borderRadius: moderateScale(32),
     backgroundColor: 'white',
     alignItems: 'center',
@@ -286,25 +294,21 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   playButton: {
-    width: horizontalScale(80),
-    height: verticalScale(80),
+    width: moderateScale(80),
+    height: moderateScale(80),
     borderRadius: moderateScale(40),
     backgroundColor: '#2E82B2',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  playPauseIcon: {
-    color: 'white',
-    fontSize: moderateScale(35),
-    fontWeight: '700',
-  },
+
   settingsIcon: {
     fontSize: moderateScale(30),
     color: '#2E82B2',
   },
   stopIcon: {
-    width: horizontalScale(25),
-    height: verticalScale(25),
+    width: moderateScale(25),
+    height: moderateScale(25),
     borderRadius: moderateScale(5),
     backgroundColor: '#2E82B2',
   },
@@ -323,7 +327,7 @@ const styles = StyleSheet.create({
   modalTitle: {
     color: '#2E82B2',
     fontSize: moderateScale(25),
-    fontWeight: '700',
+    fontFamily: 'Montserrat-Bold',
     marginBottom: verticalScale(30),
   },
   inputLabel: {
@@ -331,7 +335,7 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(20),
     marginBottom: verticalScale(10),
     marginTop: verticalScale(20),
-    fontWeight: '600',
+    fontFamily: 'Montserrat-Bold',
   },
   input: {
     height: verticalScale(56),
@@ -353,6 +357,29 @@ const styles = StyleSheet.create({
   saveButtonText: {
     color: 'white',
     fontSize: moderateScale(23),
-    fontWeight: '600',
+    fontFamily: 'Montserrat-Bold',
+  },
+  playIconTriangle: {
+    width: 0,
+    height: 0,
+    borderTopWidth: moderateScale(11),
+    borderBottomWidth: moderateScale(11),
+    borderLeftWidth: moderateScale(18),
+    borderTopColor: 'transparent',
+    borderBottomColor: 'transparent',
+    borderLeftColor: 'white',
+    marginLeft: moderateScale(4), 
+  },
+  pauseIconGroup: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  pauseBar: {
+    width: moderateScale(7),
+    height: moderateScale(24),
+    borderRadius: moderateScale(2),
+    backgroundColor: 'white',
+    marginHorizontal: moderateScale(3),
   },
 });

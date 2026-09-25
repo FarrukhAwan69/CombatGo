@@ -35,7 +35,6 @@ const slides = [
 
 function OnboardingScreen({ navigation }: any) {
   return (
-    // <SafeAreaView style={{ flex: 1 }} edges={['top', 'bottom']}>
     <View style={styles.container}>
 
       <FlatList
@@ -55,7 +54,6 @@ function OnboardingScreen({ navigation }: any) {
       />
 
     </View>
-    // </SafeAreaView>
   );
 }
 
